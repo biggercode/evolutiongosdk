@@ -63,4 +63,20 @@ class EvolutionGoClient
     {
         return new UserService($this);
     }
+
+    /**
+     * Helper to parse incoming webhooks and dispatch WebSocket broadcasts.
+     *
+     * @param array $payload The webhook payload received from EvolutionGo.
+     * @return void
+     */
+    public function handleWebhook(array $payload): void
+    {
+        if (config('evolutiongosdk.broadcasting.enabled', false)) {
+            $eventName = $payload['event'] ?? 'unknown';
+            $instanceName = $payload['instance'] ?? null;
+            
+            event(new \Biggercode\EvolutionGoSdk\Events\EvolutionWebhookReceived($eventName, $payload, $instanceName));
+        }
+    }
 }
