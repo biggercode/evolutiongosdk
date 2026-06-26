@@ -9,6 +9,12 @@ use Biggercode\EvolutionGoSdk\Endpoints\SendMessageService;
 use Biggercode\EvolutionGoSdk\Endpoints\MessageService;
 use Biggercode\EvolutionGoSdk\Endpoints\GroupService;
 use Biggercode\EvolutionGoSdk\Endpoints\UserService;
+use Biggercode\EvolutionGoSdk\Endpoints\CallService;
+use Biggercode\EvolutionGoSdk\Endpoints\ChatService;
+use Biggercode\EvolutionGoSdk\Endpoints\CommunityService;
+use Biggercode\EvolutionGoSdk\Endpoints\LabelService;
+use Biggercode\EvolutionGoSdk\Endpoints\NewsletterService;
+use Biggercode\EvolutionGoSdk\Endpoints\PollsService;
 
 class EvolutionGoClient
 {
@@ -62,6 +68,36 @@ class EvolutionGoClient
     public function user(): UserService
     {
         return new UserService($this);
+    }
+
+    public function call(): CallService
+    {
+        return new CallService($this);
+    }
+
+    public function chat(): ChatService
+    {
+        return new ChatService($this);
+    }
+
+    public function community(): CommunityService
+    {
+        return new CommunityService($this);
+    }
+
+    public function label(): LabelService
+    {
+        return new LabelService($this);
+    }
+
+    public function newsletter(): NewsletterService
+    {
+        return new NewsletterService($this);
+    }
+
+    public function polls(): PollsService
+    {
+        return new PollsService($this);
     }
 
     /**

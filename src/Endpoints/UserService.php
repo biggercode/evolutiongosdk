@@ -31,4 +31,33 @@ class UserService extends BaseEndpoint
         }
         return $this->post('user/privacy', $data);
     }
+    public function block(array $data): array
+    {
+        return $this->post('user/block', $data);
+    }
+
+    public function blockList(): array
+    {
+        return $this->get('user/blocklist');
+    }
+
+    public function profileName(array $data): array
+    {
+        return $this->post('user/profileName', $data);
+    }
+
+    public function profilePicture(array $data): array
+    {
+        return $this->post('user/profilePicture', $data);
+    }
+
+    public function profileStatus(array $data): array
+    {
+        return $this->post('user/profileStatus', $data);
+    }
+
+    public function unblock(array $data): array
+    {
+        return $this->post('user/unblock', $data);
+    }
 }

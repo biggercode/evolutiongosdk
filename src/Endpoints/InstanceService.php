@@ -4,9 +4,19 @@ namespace Biggercode\EvolutionGoSdk\Endpoints;
 
 class InstanceService extends BaseEndpoint
 {
-    public function create(array $data): array
+    public function getAdvancedSettings(string $instanceId): array
     {
-        return $this->post('instance/create', $data);
+        return $this->get("instance/{$instanceId}/advanced-settings");
+    }
+
+    public function updateAdvancedSettings(string $instanceId, array $settings): array
+    {
+        return $this->put("instance/{$instanceId}/advanced-settings", $settings);
+    }
+
+    public function getAll(): array
+    {
+        return $this->get('instance/all');
     }
 
     public function connect(array $data): array
@@ -14,14 +24,9 @@ class InstanceService extends BaseEndpoint
         return $this->post('instance/connect', $data);
     }
 
-    public function status(array $query = []): array
+    public function create(array $data): array
     {
-        return $this->get('instance/status', $query);
-    }
-
-    public function qr(array $query = []): array
-    {
-        return $this->get('instance/qr', $query);
+        return $this->post('instance/create', $data);
     }
 
     public function deleteInstance(string $instanceId): array
@@ -29,13 +34,53 @@ class InstanceService extends BaseEndpoint
         return parent::delete("instance/delete/{$instanceId}");
     }
 
-    public function logout(): array
+    public function disconnect(): array
     {
-        return $this->delete('instance/logout');
+        return $this->post('instance/disconnect');
     }
 
-    public function updateAdvancedSettings(string $instanceId, array $settings): array
+    public function forceReconnect(string $instanceId, array $data = []): array
     {
-        return $this->put("instance/{$instanceId}/advanced-settings", $settings);
+        return $this->post("instance/forcereconnect/{$instanceId}", $data);
+    }
+
+    public function get(string $instanceId): array
+    {
+        return parent::get("instance/get/{$instanceId}");
+    }
+
+    public function logout(): array
+    {
+        return parent::delete('instance/logout');
+    }
+
+    public function pair(array $data): array
+    {
+        return $this->post('instance/pair', $data);
+    }
+
+    public function deleteProxy(string $instanceId): array
+    {
+        return parent::delete("instance/proxy/{$instanceId}");
+    }
+
+    public function setProxy(string $instanceId, array $data): array
+    {
+        return $this->post("instance/proxy/{$instanceId}", $data);
+    }
+
+    public function qr(array $query = []): array
+    {
+        return parent::get('instance/qr', $query);
+    }
+
+    public function reconnect(): array
+    {
+        return $this->post('instance/reconnect');
+    }
+
+    public function status(array $query = []): array
+    {
+        return parent::get('instance/status', $query);
     }
 }

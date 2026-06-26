@@ -19,6 +19,11 @@ class MessageService extends BaseEndpoint
         return $this->post('message/delete', $data);
     }
 
+    public function downloadImage(array $data): array
+    {
+        return $this->post('message/downloadimage', $data);
+    }
+
     public function edit(array $data): array
     {
         return $this->post('message/edit', $data);
