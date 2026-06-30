@@ -4,6 +4,22 @@ namespace Biggercode\EvolutionGoSdk\Endpoints;
 
 class InstanceService extends BaseEndpoint
 {
+    protected function normalizeInstanceReference(array $data): array
+    {
+        $instance = $data['instance'] ?? $data['instanceName'] ?? $data['name'] ?? null;
+        $instanceId = $data['instanceId'] ?? null;
+
+        if (! isset($data['instance']) && is_string($instanceId) && $instanceId !== '') {
+            $data['instance'] = $instanceId;
+        }
+
+        if (! isset($data['instanceId']) && is_string($instance) && $instance !== '') {
+            $data['instanceId'] = $instance;
+        }
+
+        return $data;
+    }
+
     public function getAdvancedSettings(string $instanceId): array
     {
         return $this->get("instance/{$instanceId}/advanced-settings");
@@ -21,7 +37,7 @@ class InstanceService extends BaseEndpoint
 
     public function connect(array $data): array
     {
-        return $this->post('instance/connect', $data);
+        return $this->post('instance/connect', $this->normalizeInstanceReference($data));
     }
 
     public function create(array $data): array
@@ -57,7 +73,7 @@ class InstanceService extends BaseEndpoint
 
     public function pair(array $data): array
     {
-        return $this->post('instance/pair', $data);
+        return $this->post('instance/pair', $this->normalizeInstanceReference($data));
     }
 
     public function deleteProxy(string $instanceId): array
@@ -72,7 +88,7 @@ class InstanceService extends BaseEndpoint
 
     public function qr(array $query = []): array
     {
-        return parent::get('instance/qr', $query);
+        return parent::get('instance/qr', $this->normalizeInstanceReference($query));
     }
 
     public function reconnect(): array
@@ -82,6 +98,6 @@ class InstanceService extends BaseEndpoint
 
     public function status(array $query = []): array
     {
-        return parent::get('instance/status', $query);
+        return parent::get('instance/status', $this->normalizeInstanceReference($query));
     }
 }
