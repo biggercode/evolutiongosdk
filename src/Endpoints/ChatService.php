@@ -38,4 +38,14 @@ class ChatService extends BaseEndpoint
     {
         return $this->post('chat/unpin', $data);
     }
+
+    public function findChats(string $instance, array $data = []): array
+    {
+        return $this->post("chat/findChats/{$instance}", $data);
+    }
+
+    public function findMessages(string $instance, array $data = []): array
+    {
+        return $this->post("chat/findMessages/{$instance}", $data);
+    }
 }

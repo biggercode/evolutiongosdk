@@ -4,14 +4,18 @@ namespace Biggercode\EvolutionGoSdk\Endpoints;
 
 class SendMessageService extends BaseEndpoint
 {
-    public function text(array $data): array
+    public function text(string $instance, array $data): array
     {
-        return $this->post('send/text', $data);
+        return $this->post('send/text', array_merge([
+            'instance' => $instance,
+        ], $data));
     }
 
-    public function media(array $data): array
+    public function media(string $instance, array $data): array
     {
-        return $this->post('send/media', $data);
+        return $this->post('send/media', array_merge([
+            'instance' => $instance,
+        ], $data));
     }
 
     public function list(array $data): array

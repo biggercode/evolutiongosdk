@@ -44,14 +44,15 @@ class InstanceService extends BaseEndpoint
         return $this->post("instance/forcereconnect/{$instanceId}", $data);
     }
 
-    public function get(string $instanceId): array
+    public function fetch(string $instanceId): array
     {
         return parent::get("instance/get/{$instanceId}");
     }
 
-    public function logout(): array
+    public function logout(?string $instanceId = null): array
     {
-        return parent::delete('instance/logout');
+        $path = $instanceId ? "instance/logout/{$instanceId}" : 'instance/logout';
+        return parent::delete($path);
     }
 
     public function pair(array $data): array
